@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="">
+            <h1>Client's</h1>
+        </div>
+        <div class="Clients">
+            <%  result.forEach((val)=>{ %>
+                <div class="client">
+                    <h4>Id: <%=val.id %></h4>
+                    <h4>Name: <%=val.username %></h4>
+                    <a href="http://localhost:3000/client/<%=val.id%>">Details</a>
+                    <a href="http://localhost:3000/client/<%=val.id%>/edit">Edit</a>
+                </div>
+              <br>
+           <% }) %>
+        </div>
+    </div>
+</body>
+</html>

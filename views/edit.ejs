@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
+</head>
+<body>
+    <div class="main">
+    <div class="details">
+    <h1>Edit.</h1>
+    <button class="editname">Edit Name</button>
+    <button class="editemail">Edit Email</button>
+    <hr>
+</div>
+    <div class="template">
+    
+    <div class="changenametemplate">
+        <h3>Change your Name</h3>
+        <form action="/client/<%=result[0].id%>/username" method="post">
+           <p>Old Name</p> <input type="text" name="prevName" value="<%=result[0].username%>" readonly id="">
+           <p>New Name</p> <input type="text" name="newName"  id=""><br>
+           <p>Enter password:</p> <input type="password" name="password" id="">
+            <button>submit</button>
+        </form>
+    </div>
+    <div class="changeemailtemplate">
+        <h3>Change your email:</h3>
+        <form action="/client/<%=result[0].id%>/email" method="post">
+           <p>Old Email</p> <input type="text" name="prevEmail" style="outline: none;" value="<%=result[0].email%>" readonly id="">
+           <p>New Email</p> <input type="text" name="newEmail" style="outline: none;"  id=""><br>
+           <p>Enter password:</p> <input type="password" name="password" id="">
+            <button>Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+<script src="/script/script.js"></script>
+</body>
+</html>
