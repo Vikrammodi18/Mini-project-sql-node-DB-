@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/stylesheet/style.css">
 </head>
 <body>
     <div class="main">
+        
         <div class="navbar">
             <h1>Client's</h1>
             <div class="search">
+                
                 <form action="/client/search" method="post">
                     <input type="search" name="username" id="" placeholder="search client">
                     <button>search</button>
                 </form>
             </div>
         </div>
-
-        <div class="bottom">
-        <div class="Clients">
+        <div class="searchedclient">
             <%  result.forEach((val)=>{ %>
                 <div class="client">
                     <h4>Id: <%=val.id %></h4>
                     <h4>Name: <%=val.username %></h4>
                     <a href="http://localhost:3000/client/<%=val.id%>">Details</a>
                     <a href="http://localhost:3000/client/<%=val.id%>/edit">Edit</a>
+                    <a href="http://localhost:3000/client">Go to Home</a>
                 </div>
               <br>
            <% }) %>
         </div>
-
-    </div>
     </div>
 </body>
 </html>

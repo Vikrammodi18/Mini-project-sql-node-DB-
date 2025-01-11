@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const express = require('express')
+// const methodOverride = require('method-override')
 // const path = require('path')
 const port = 3000;
 
@@ -11,6 +12,7 @@ const connection = mysql.createConnection({
   });
 
 const app = express()
+// app.use('_method?')
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.set('view engine','ejs')
@@ -61,7 +63,7 @@ app.post('/client/:id/username',(req,res)=>{
        try{
            connection.query(q,(err,result)=>{
             if (err) throw err;
-            console.log(result)
+            // console.log(result)
             res.redirect('/client')
 
         })
@@ -76,7 +78,7 @@ app.post('/client/:id/email',(req,res)=>{
    try{
        connection.query(q,(err,result)=>{
         if (err) throw err;
-        console.log(result)
+        // console.log(result)
         res.redirect('/client')
 
     })
@@ -85,7 +87,20 @@ app.post('/client/:id/email',(req,res)=>{
    }
   
 })
+app.post('/client/search',(req,res)=>{
+    const{username} = req.body;
+    const q = `select id,username,email from user where username LIKE'%${username}%'`;
+    try{
+        connection.query(q,(err,result)=>{
+            // console.log(result)
+            if (err) throw err;
+            res.render('search',{result})
+        })
 
+    } catch(err){
+        console.log(err);
+    }
+})
 
 app.listen(port,()=>{
     console.log(`app is running at port:${port}`)
