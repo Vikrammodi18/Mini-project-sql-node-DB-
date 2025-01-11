@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const express = require('express')
+const status = require('express-status-monitor')
 // const methodOverride = require('method-override')
 // const path = require('path')
 const port = 3000;
@@ -13,6 +14,7 @@ const connection = mysql.createConnection({
 
 const app = express()
 // app.use('_method?')
+app.use(status())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.set('view engine','ejs')
@@ -57,18 +59,20 @@ app.get('/client/:id/edit',(req,res)=>{
         }
 })
 app.post('/client/:id/username',(req,res)=>{
-    const{newName} =req.body;
+    const{newName,password} =req.body;
     const {id} = req.params
-       const q =`UPDATE user SET username = '${newName}' WHERE id ='${id}' `;
+       const q =`UPDATE user SET username = '${newName}' WHERE id ='${id}' AND password='${password}' `;
        try{
+        
            connection.query(q,(err,result)=>{
-            if (err) throw err;
-            // console.log(result)
-            res.redirect('/client')
 
+            if (err) throw err;
+            
+            // console.log(result)
+            // res.redirect('/client')
         })
        }catch (err){
-        console.log(err)
+        res.send("wrong password")
        }
 })
 app.post('/client/:id/email',(req,res)=>{
@@ -89,7 +93,7 @@ app.post('/client/:id/email',(req,res)=>{
 })
 app.post('/client/search',(req,res)=>{
     const{username} = req.body;
-    const q = `select id,username,email from user where username LIKE'%${username}%'`;
+    const q = `select id,username,email from user where username LIKE'%${username}%' OR email LIKE '%${username}%'`;
     try{
         connection.query(q,(err,result)=>{
             // console.log(result)
